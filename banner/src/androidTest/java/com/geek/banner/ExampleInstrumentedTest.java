@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.geek.myapplication", appContext.getPackageName());
+        assertEquals("com.geek.banner.test", appContext.getPackageName());
     }
 }

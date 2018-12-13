@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Banner">
+        <attr name="banner_auto_play" format="boolean" />
+        <attr name="banner_multi_page" format="boolean" />
+        <attr name="banner_interval_time" format="integer" />
+        <attr name="banner_scroll_time" format="integer" />
+        <attr name="banner_expose_width" format="dimension" />
+        <attr name="banner_page_spacing" format="dimension" />
+        <attr name="banner_show_indicator" format="boolean" />
+        <attr name="banner_default_image" format="reference" />
+        <attr name="indicator_select_width" format="dimension" />
+        <attr name="indicator_default_width" format="dimension" />
+        <attr name="indicator_select_height" format="dimension" />
+        <attr name="indicator_default_height" format="dimension" />
+        <attr name="indicator_space" format="dimension" />
+        <attr name="indicator_margin_bottom" format="dimension" />
+        <attr name="indicator_select_drawable" format="reference" />
+        <attr name="indicator_default_drawable" format="reference" />
+        <attr name="banner_single_anim" format="enum">
+            <enum name="Default" value="0" />
+            <enum name="Accordion" value="1" />
+            <enum name="BackgroundToForeground" value="2" />
+            <enum name="ForegroundToBackground" value="3" />
+            <enum name="CubeIn" value="4" />
+            <enum name="CubeOut" value="5" />
+            <enum name="DepthPage" value="6" />
+            <enum name="FlipHorizontal" value="7" />
+            <enum name="FlipVertical" value="8" />
+            <enum name="RotateDown" value="9" />
+            <enum name="RotateUp" value="10" />
+            <enum name="ScaleInOut" value="11" />
+            <enum name="Stack" value="12" />
+            <enum name="Tablet" value="13" />
+            <enum name="ZoomIn" value="14" />
+            <enum name="ZoomOut" value="15" />
+            <enum name="ZoomOutSlide" value="16" />
+        </attr>
+        <attr name="banner_multi_anim" format="enum">
+            <enum name="Alpha" value="0" />
+            <enum name="Non" value="1" />
+            <enum name="RotateDown" value="2" />
+            <enum name="RotateUp" value="3" />
+            <enum name="RotateY" value="4" />
+            <enum name="ScaleIn" value="5" />
+        </attr>
+    </declare-styleable>
+</resources>

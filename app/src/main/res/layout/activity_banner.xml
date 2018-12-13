@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f2f2"
+    android:orientation="vertical"
+    tools:context=".banner.BannerActivity">
+
+    <TextView
+        android:id="@+id/refresh_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spacing_40"
+        android:gravity="center"
+        android:text="刷新~~"
+        android:textColor="#333333"
+        android:textSize="@dimen/font_size_17" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_40"
+                android:gravity="center"
+                android:text="正常数据"
+                android:textColor="#999999"
+                android:textSize="@dimen/font_size_15" />
+
+            <com.geek.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_178"
+                android:layout_marginTop="@dimen/spacing_20"
+                app:banner_auto_play="true"
+                app:banner_interval_time="3000"
+                app:banner_multi_page="false"
+                app:banner_show_indicator="true"
+                app:banner_single_anim="Accordion"
+                app:indicator_default_drawable="@mipmap/line_normal"
+                app:indicator_default_height="@dimen/spacing_5"
+                app:indicator_default_width="@dimen/spacing_17"
+                app:indicator_select_drawable="@mipmap/line_select"
+                app:indicator_select_height="@dimen/spacing_5"
+                app:indicator_select_width="@dimen/spacing_32"
+                app:indicator_space="@dimen/spacing_5" />
+
+            <com.geek.banner.Banner
+                android:id="@+id/banner_2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_178"
+                android:layout_marginTop="@dimen/spacing_20"
+                app:banner_auto_play="true"
+                app:banner_expose_width="@dimen/spacing_20"
+                app:banner_interval_time="3000"
+                app:banner_multi_anim="ScaleIn"
+                app:banner_multi_page="true"
+                app:banner_page_spacing="@dimen/spacing_20"
+                app:banner_show_indicator="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_40"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:gravity="center"
+                android:text="2条数据"
+                android:textColor="#999999"
+                android:textSize="@dimen/font_size_15" />
+
+            <com.geek.banner.Banner
+                android:id="@+id/banner_3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_178"
+                android:layout_marginTop="@dimen/spacing_20"
+                app:banner_auto_play="true"
+                app:banner_interval_time="3000"
+                app:banner_multi_page="false"
+                app:banner_show_indicator="true"
+                app:banner_single_anim="DepthPage"
+                app:indicator_default_drawable="@mipmap/line_normal"
+                app:indicator_default_height="@dimen/spacing_5"
+                app:indicator_default_width="@dimen/spacing_17"
+                app:indicator_select_drawable="@mipmap/line_select"
+                app:indicator_select_height="@dimen/spacing_5"
+                app:indicator_select_width="@dimen/spacing_32"
+                app:indicator_space="@dimen/spacing_5" />
+
+            <com.geek.banner.Banner
+                android:id="@+id/banner_4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_178"
+                android:layout_marginTop="@dimen/spacing_20"
+                app:banner_auto_play="true"
+                app:banner_expose_width="@dimen/spacing_20"
+                app:banner_interval_time="3000"
+                app:banner_multi_anim="RotateUp"
+                app:banner_multi_page="true"
+                app:banner_page_spacing="@dimen/spacing_20"
+                app:banner_show_indicator="true" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_40"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:gravity="center"
+                android:text="1条数据"
+                android:textColor="#999999"
+                android:textSize="@dimen/font_size_15" />
+
+            <com.geek.banner.Banner
+                android:id="@+id/banner_5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_178"
+                android:layout_marginTop="@dimen/spacing_20"
+                app:banner_auto_play="true"
+                app:banner_interval_time="3000"
+                app:banner_multi_page="false"
+                app:banner_show_indicator="true"
+                app:banner_single_anim="Stack"
+                app:indicator_default_drawable="@mipmap/line_normal"
+                app:indicator_default_height="@dimen/spacing_5"
+                app:indicator_default_width="@dimen/spacing_17"
+                app:indicator_select_drawable="@mipmap/line_select"
+                app:indicator_select_height="@dimen/spacing_5"
+                app:indicator_select_width="@dimen/spacing_32"
+                app:indicator_space="@dimen/spacing_5" />
+
+            <com.geek.banner.Banner
+                android:id="@+id/banner_6"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_178"
+                android:layout_marginTop="@dimen/spacing_20"
+                app:banner_auto_play="true"
+                app:banner_expose_width="@dimen/spacing_20"
+                app:banner_interval_time="3000"
+                app:banner_multi_anim="RotateY"
+                app:banner_multi_page="true"
+                app:banner_page_spacing="@dimen/spacing_20"
+                app:banner_show_indicator="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_40"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:gravity="center"
+                android:text="Pager Item自定义~"
+                android:textColor="#999999"
+                android:textSize="@dimen/font_size_15" />
+
+            <com.geek.banner.Banner
+                android:id="@+id/banner_7"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_178"
+                android:layout_marginTop="@dimen/spacing_20"
+                app:banner_auto_play="true"
+                app:banner_interval_time="3000"
+                app:banner_multi_page="false"
+                app:banner_show_indicator="true"
+                app:banner_single_anim="Stack"
+                app:indicator_default_drawable="@mipmap/line_normal"
+                app:indicator_default_height="@dimen/spacing_5"
+                app:indicator_default_width="@dimen/spacing_17"
+                app:indicator_select_drawable="@mipmap/line_select"
+                app:indicator_select_height="@dimen/spacing_5"
+                app:indicator_select_width="@dimen/spacing_32"
+                app:indicator_space="@dimen/spacing_5" />
+
+            <com.geek.banner.Banner
+                android:id="@+id/banner_8"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_178"
+                android:layout_marginTop="@dimen/spacing_20"
+                app:banner_auto_play="true"
+                app:banner_expose_width="@dimen/spacing_20"
+                app:banner_interval_time="3000"
+                app:banner_multi_anim="RotateY"
+                app:banner_multi_page="true"
+                app:banner_page_spacing="@dimen/spacing_20"
+                app:banner_show_indicator="true" />
+
+            <com.geek.banner.Banner
+                android:id="@+id/banner_9"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_178"
+                android:layout_marginTop="@dimen/spacing_20"
+                app:banner_auto_play="true"
+                app:banner_expose_width="@dimen/spacing_20"
+                app:banner_interval_time="3000"
+                app:banner_multi_anim="RotateY"
+                app:banner_multi_page="true"
+                app:banner_page_spacing="@dimen/spacing_20"
+                app:banner_show_indicator="true" />
+
+            <com.geek.banner.Banner
+                android:id="@+id/banner_10"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_178"
+                android:layout_marginTop="@dimen/spacing_20"
+                app:banner_auto_play="true"
+                app:banner_interval_time="3000"
+                app:banner_multi_page="false"
+                app:banner_show_indicator="false"
+                app:banner_single_anim="Stack">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_38"
+                    android:layout_alignParentBottom="true"
+                    android:background="#33000000">
+
+                    <TextView
+                        android:id="@+id/banner_10_text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/spacing_16"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/color_ffffff"
+                        android:textSize="@dimen/font_size_14"
+                        tools:text="测试~" />
+
+                    <TextView
+                        android:id="@+id/banner_10_index"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/spacing_16"
+                        android:layout_marginRight="@dimen/spacing_16"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/color_ffffff"
+                        android:textSize="@dimen/font_size_14"
+                        tools:text="4/5" />
+                </LinearLayout>
+            </com.geek.banner.Banner>
+
+            <com.geek.banner.Banner
+                android:id="@+id/banner_11"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_178"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:layout_marginBottom="@dimen/spacing_50"
+                app:banner_auto_play="true"
+                app:banner_interval_time="3000"
+                app:banner_multi_page="false"
+                app:banner_show_indicator="true"
+                app:banner_single_anim="Stack">
+
+                <com.test.banner.widget.BarrageView
+                    android:id="@+id/barrage_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </com.geek.banner.Banner>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
