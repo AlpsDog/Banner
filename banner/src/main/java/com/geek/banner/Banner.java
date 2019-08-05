@@ -67,7 +67,6 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
     private WeakHandler mWeakHandler = new WeakHandler();
     private ArrayList<View> mBannerItems = new ArrayList<>();
     private List<Object> mImagePaths = new ArrayList<>();
-    private Context mContext;
 
     //能否自动轮播
     private boolean mCanAutoPlay;
@@ -129,7 +128,6 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
 
     public Banner(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mContext = context;
         inflate(context, R.layout.merge_banner, this);
         initAttributes(context, attrs, defStyleAttr);
         initView();
@@ -171,17 +169,13 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
      * 初始化View
      */
     private void initView() {
-        //控件初始化
         mViewPager = findViewById(R.id.banner_vp);
         mIndicatorLl = findViewById(R.id.indicator_ll);
         mDefaultImg = findViewById(R.id.default_iv);
-        //默认Image
+        //Banner数据为空时默认显示图片
         mDefaultImg.setImageResource(mDefaultBanner);
-        //指示器
         initIndicator();
-        //VP页面
         initMultiPage();
-        //VP Transform
         initBannerTransformer();
     }
 
@@ -189,14 +183,21 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
      * 切换多页
      */
     private void initMultiPage() {
-        if (!mIsMultiPage) return;
+        if (!mIsMultiPage) {
+            //非一屏三页，直接return
+            return;
+        }
+        //关键之处:
+        // 1.当clipChildren为false时，超出View的子页面，不会被切掉，仍然可以显示。
+        // 2.设置为true，那么不管你的子View设置为多大子View左右的View都不会显示，会用空白代替。
+        // 3.设置setPagerMargin()
         setClipChildren(false);
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         LayoutParams params = (LayoutParams) mViewPager.getLayoutParams();
         params.leftMargin = mExposeWidth + mPageSpacing;
         params.rightMargin = mExposeWidth + mPageSpacing;
         mViewPager.setLayoutParams(params);
         setPagerMargin(mPageSpacing);
+        //左右预加载两页即可，太多会加大内存消耗
         setOffscreenPageLimit(2);
     }
 
@@ -207,7 +208,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
         if (mShowIndicator) {
             mIndicatorLl.setVisibility(VISIBLE);
         }
-        int defaultMargin = dip2px(mContext, 16);
+        int defaultMargin = dip2px(getContext(), 16);
         LayoutParams params = (LayoutParams) mIndicatorLl.getLayoutParams();
         if (mIsMultiPage) {
             //指示器
@@ -243,42 +244,60 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
     private void initBannerTransformer() {
         if (!mIsMultiPage) {
             if (mSingleTransform == 0) {
+                //无动画，正常滚动
                 setBannerTransformer(new DefaultTransformer());
             } else if (mSingleTransform == 1) {
+                //挤压
                 setBannerTransformer(new AccordionTransformer());
             } else if (mSingleTransform == 2) {
+                //由小变大
                 setBannerTransformer(new BackgroundToForegroundTransformer());
             } else if (mSingleTransform == 3) {
+                //有大变小
                 setBannerTransformer(new ForegroundToBackgroundTransformer());
             } else if (mSingleTransform == 4) {
+                //矩形翻转
                 setBannerTransformer(new CubeInTransformer());
             } else if (mSingleTransform == 5) {
+                //缩小的矩形翻转
                 setBannerTransformer(new CubeOutTransformer());
             } else if (mSingleTransform == 6) {
+                //由浅到深
                 setBannerTransformer(new DepthPageTransformer());
             } else if (mSingleTransform == 7) {
+                //水平旋转
                 setBannerTransformer(new FlipHorizontalTransformer());
             } else if (mSingleTransform == 8) {
+                //垂直旋转
                 setBannerTransformer(new FlipVerticalTransformer());
             } else if (mSingleTransform == 9) {
+                //大风车
                 setBannerTransformer(new RotateDownTransformer());
             } else if (mSingleTransform == 10) {
+                //大风车
                 setBannerTransformer(new RotateUpTransformer());
             } else if (mSingleTransform == 11) {
+                //一小一大
                 setBannerTransformer(new ScaleInOutTransformer());
             } else if (mSingleTransform == 12) {
+                //滑走
                 setBannerTransformer(new StackTransformer());
             } else if (mSingleTransform == 13) {
+                //矩形翻转
                 setBannerTransformer(new TabletTransformer());
             } else if (mSingleTransform == 14) {
+                //逐渐走远
                 setBannerTransformer(new ZoomInTransformer());
             } else if (mSingleTransform == 15) {
+                //逐渐靠近
                 setBannerTransformer(new ZoomOutTranformer());
             } else {
+                //连环画
                 setBannerTransformer(new ZoomOutSlideTransformer());
             }
         } else {
             if (mMultiTransform == 0) {
+                //左右略透明，中间正常，滑动透明
                 setBannerTransformer(new AlphaPageTransformer());
             } else if (mMultiTransform == 1) {
                 setBannerTransformer(new NonPageTransformer());
@@ -289,6 +308,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
             } else if (mMultiTransform == 4) {
                 setBannerTransformer(new RotateYTransformer());
             } else {
+                //左右缩小，中间正常，滑动缩放
                 setBannerTransformer(new ScaleInTransformer());
             }
         }
@@ -394,6 +414,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
      * 最后一个元素放置第一张图
      * 为了无限轮播在最后一张过渡到第一张（或者第一张过渡到最后一张）时
      * 有正常的翻页动画，达到更好的体验效果
+     *
      * <p>
      * 一屏多页，就得在多加两张图
      * 防止过渡时出现左边或者右边空白
@@ -472,6 +493,8 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
         //如果notifyDataSetChanged()，然后再setCurrentItem(mCurrentIndex, false)，
         //这样处理，会先实例当前页以及需要缓存的页面，然后再回到mCurrentIndex，再实例mCurrentIndex页以及其左右
         //缓存页，感觉有些得不偿失
+
+        //所以不如直接设置一次适配器
         mViewPager.setAdapter(mBannerPagerAdapter);
         mViewPager.setFocusable(true);
         mViewPager.setCurrentItem(mCurrentIndex, false);
@@ -547,6 +570,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
             mCurrentIndex++;
             if (mIsMultiPage) {
                 //一屏多页
+                //b c a b c a b
                 if (mCurrentIndex == mNeedPagers - 1) {
                     //当前处于倒数第二页，为Banner第一张图
                     //此时过渡到真实的第一页（即下标为2）
@@ -622,6 +646,8 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
                 // TODO: 2018/12/3
                 Log.d(TAG, "onPageScrollStateChanged: 抬起");
                 break;
+            default:
+                //default
         }
     }
 
@@ -704,7 +730,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
         if (!mShowIndicator) return;
         mIndicatorLl.removeAllViews();
         while (size > 0) {
-            View view = new View(mContext);
+            View view = new View(getContext());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mIndicatorDefaultW, mIndicatorDefaultH);
             params.setMargins(mIndicatorSpacing, 0, 0, 0);
             view.setLayoutParams(params);
