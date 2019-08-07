@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Banner示例</string>
+    <string name="banner_attr_explain">Banner属性说明
+        \n
+        \n banner_auto_play  :  能否自动轮播
+        \n banner_show_model  :  显示模式（一屏一页、一屏三页）
+        \n banner_interval_time  :  轮播间隔
+        \n banner_scroll_time  :  翻页时长（决定翻页的速度）
+        \n banner_single_anim  :  一屏一页动画
+        \n banner_default_image  :  数据为空时，默认显示图
+        \n banner_expose_width  :  一屏三页，左右两页露出的宽度
+        \n banner_page_spacing  :  一屏三页，页间距
+        \n banner_multi_anim  :  一屏三页动画
+        \n banner_show_indicator  :  是否显示指示器
+        \n indicator_select_width  :  选中的指示器宽度
+        \n indicator_select_height  :  选中的指示器高度
+        \n indicator_default_width  :  未选中指示器宽度
+        \n indicator_default_height  :  未选中指示器高度
+        \n indicator_space  :  指示器间隔
+        \n indicator_margin_bottom  :  指示器距底部距离
+        \n indicator_select_drawable  :  指示器选中的样式
+        \n indicator_default_drawable  :  指示器未选中样式
+    </string>
 </resources>

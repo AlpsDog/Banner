@@ -9,7 +9,8 @@ package com.geek.banner.constant;
 public interface BannerConfig {
 
     boolean CAN_AUTO_PLAY = true;
-    boolean MULTI_PAGE = false;
+    int SINGLE = 1;
+    int MULTI = 2;
     int INTERVAL_TIME = 3000;
     int SCROLL_TIME = 800;
     int EXPOSE_WIDTH = 40;

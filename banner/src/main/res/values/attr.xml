@@ -2,7 +2,10 @@
 <resources>
     <declare-styleable name="Banner">
         <attr name="banner_auto_play" format="boolean" />
-        <attr name="banner_multi_page" format="boolean" />
+        <attr name="banner_show_model" format="enum">
+            <enum name="Single" value="1" />
+            <enum name="Multi" value="2" />
+        </attr>
         <attr name="banner_interval_time" format="integer" />
         <attr name="banner_scroll_time" format="integer" />
         <attr name="banner_expose_width" format="dimension" />

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/selector_banner_anim_tab"
+    android:paddingLeft="14dp"
+    android:paddingTop="6dp"
+    android:paddingRight="14dp"
+    android:paddingBottom="6dp"
+    android:text="测试"
+    android:textColor="@color/selector_banner_anim_color"
+    android:textSize="16sp" />
