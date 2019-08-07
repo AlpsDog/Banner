@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.geek.banner.Banner;
+import com.geek.banner.loader.BannerEntry;
 import com.geek.banner.loader.BannerLoader;
 import com.geek.banner.transformer.simple.AccordionTransformer;
 import com.geek.banner.transformer.simple.BackgroundToForegroundTransformer;
@@ -34,6 +35,7 @@ import com.geek.banner.transformer.simple.ZoomInTransformer;
 import com.geek.banner.transformer.simple.ZoomOutSlideTransformer;
 import com.geek.banner.transformer.simple.ZoomOutTranformer;
 import com.test.banner.R;
+import com.test.banner.bean.BannerItem;
 import com.test.banner.widget.flowlayout.FlowLayout;
 import com.test.banner.widget.flowlayout.TagAdapter;
 import com.test.banner.widget.flowlayout.TagFlowLayout;
@@ -65,7 +67,7 @@ public class ShowAnimActivity extends AppCompatActivity {
     @BindView(R.id.multi_tfl)
     TagFlowLayout multiTfl;
 
-    private List<String> mData = new ArrayList<>();
+    private List<BannerItem> mData = new ArrayList<>();
     private List<String> mSingle = new ArrayList<>();
     private List<String> mMulti = new ArrayList<>();
 
@@ -87,11 +89,10 @@ public class ShowAnimActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        mData.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565154160895&di=ca29eee5a6ff2dea4e3ec15761e0f13b&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fback_pic%2Fqk%2Fback_origin_pic%2F00%2F03%2F75%2Fe140fc12da7ac89783b3dd0698d6b2ea.jpg");
-        mData.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565154160895&di=791b5647e6f58fc49ba134a09a4fc77a&imgtype=0&src=http%3A%2F%2Fbpic.588ku.com%2Fback_pic%2F04%2F95%2F44%2F605925c4ae73de4.jpg");
-        mData.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565154160895&di=8a4bb565aad507c119e5e5c7d6c88ecb&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01654f5777e1a70000012e7eefe905.jpg");
-        mData.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565154160894&di=527d9758d2e2518ad7e0b52236871665&imgtype=0&src=http%3A%2F%2Fku.90sjimg.com%2Fback_pic%2F00%2F03%2F20%2F58561dc0b9c8bd7.jpg");
-        mData.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565154160894&di=a177dc95e640d1c9564000ba8682725d&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fback_pic%2Fqk%2Fback_origin_pic%2F00%2F02%2F72%2Fs_1198_e160f1f6a2a449109f20536ad2100ae0.jpg");
+        String[] bannerUrl = getResources().getStringArray(R.array.banner_url);
+        for (String s : bannerUrl) {
+            mData.add(new BannerItem(s, ""));
+        }
 
         mSingle.add("Default");
         mSingle.add("Accordion");
@@ -306,25 +307,27 @@ public class ShowAnimActivity extends AppCompatActivity {
         /**
          * 如何加载图片资源，由自己决定
          * @param context
-         * @param path
+         * @param entry
+         * @param position Banner显示的位置
          * @param imageView
          */
         @Override
-        public void loadView(Context context, String path, ImageView imageView) {
+        public void loadView(Context context, BannerEntry entry, int position, ImageView imageView) {
             RequestOptions requestOptions = new RequestOptions()
                     .placeholder(R.drawable.banner_default)
                     .error(R.drawable.banner_default)
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
-            Glide.with(context).load(path).apply(requestOptions).into(imageView);
+            Glide.with(context).load(entry.getBannerPath()).apply(requestOptions).into(imageView);
         }
 
         /**
          * 怎样创建View，也由自己决定
          * @param context
+         * @param position
          * @return
          */
         @Override
-        public ImageView createView(Context context) {
+        public ImageView createView(Context context, int position) {
             ImageView imageView = new ImageView(context);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             return imageView;

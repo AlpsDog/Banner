@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.test.banner.banner.BannerIndicatorActivity">
+
+    <com.geek.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:banner_auto_play="true"
+        app:banner_default_image="@drawable/banner_default"
+        app:banner_interval_time="5000"
+        app:banner_scroll_time="1000"
+        app:banner_show_indicator="false"
+        app:banner_show_model="Single"
+        app:banner_single_anim="Accordion"
+        app:layout_scrollFlags="scroll">
+
+        <TextView
+            android:id="@+id/pager_tv"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/shape_indicator_bg"
+            android:gravity="center"
+            android:text="0/0"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:background="#79009688"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:text="测试内容"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+    </com.geek.banner.Banner>
+
+    <com.geek.banner.Banner
+        android:id="@+id/banner_2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        app:banner_auto_play="true"
+        app:banner_default_image="@drawable/banner_default"
+        app:banner_expose_width="20dp"
+        app:banner_interval_time="5000"
+        app:banner_multi_anim="ScaleIn"
+        app:banner_page_spacing="14dp"
+        app:banner_scroll_time="1000"
+        app:banner_show_indicator="false"
+        app:banner_show_model="Multi"
+        app:layout_scrollFlags="scroll">
+
+        <TextView
+            android:id="@+id/pager_2_tv"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="54dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/shape_indicator_bg"
+            android:gravity="center"
+            android:text="0/0"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+        <!--34 = 20+14-->
+        <TextView
+            android:id="@+id/title_2_tv"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="34dp"
+            android:layout_marginRight="34dp"
+            android:background="#7B009688"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:text="测试内容"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+    </com.geek.banner.Banner>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:lineSpacingExtra="4dp"
+        android:text="@string/banner_indicator"
+        android:textColor="#999999"
+        android:textSize="20sp" />
+</LinearLayout>

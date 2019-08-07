@@ -12,7 +12,9 @@ import android.widget.ImageView;
 public abstract class ImageLoader<T> implements BannerLoader<T, ImageView> {
 
     @Override
-    public ImageView createView(Context context) {
-        return new ImageView(context);
+    public ImageView createView(Context context, int position) {
+        ImageView imageView = new ImageView(context);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        return imageView;
     }
 }

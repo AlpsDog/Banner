@@ -14,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.geek.banner.constant.BannerConfig;
+import com.geek.banner.loader.BannerEntry;
 import com.geek.banner.loader.BannerLoader;
 import com.geek.banner.transformer.complex.AlphaPageTransformer;
 import com.geek.banner.transformer.complex.NonPageTransformer;
@@ -66,7 +68,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
 
     private WeakHandler mWeakHandler = new WeakHandler();
     private ArrayList<View> mBannerItems = new ArrayList<>();
-    private List<Object> mImagePaths = new ArrayList<>();
+    private List<BannerEntry> mBannerEntry = new ArrayList<>();
 
     //能否自动轮播
     private boolean mCanAutoPlay;
@@ -107,6 +109,8 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
 
     //加载ViewPager页面实例
     private BannerLoader mBannerLoader;
+    //banner摘要
+    private TextView mBannerText;
     //当前Banner下标
     private int mCurrentIndex = 1;
     //当前指示器位置
@@ -357,6 +361,16 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
         return this;
     }
 
+    /**
+     * 设置banner摘要的TextView
+     *
+     * @param bannerText
+     * @return
+     */
+    public Banner setBannerText(TextView bannerText) {
+        mBannerText = bannerText;
+        return this;
+    }
 
     /**
      * 设置Banner预加载页数
@@ -402,14 +416,14 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
      * @param imagePaths 图片URL/uri/res
      * @return
      */
-    public void loadImagePaths(List<?> imagePaths) {
+    public void loadImagePaths(List<? extends BannerEntry> imagePaths) {
         if (imagePaths == null || imagePaths.isEmpty()) {
             mDefaultImg.setVisibility(VISIBLE);
             Log.e(TAG, "The image data set is empty.");
             return;
         }
         mDefaultImg.setVisibility(GONE);
-        mImagePaths.clear();
+        mBannerEntry.clear();
         mBannerItems.clear();
         mRealPagers = imagePaths.size();
         //清除仅一页时，添加的View
@@ -427,28 +441,28 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
             //多添加4页
             mNeedPagers = mRealPagers + MULTIPAGE_EXTRA_NUM;
             //mImagePaths第1个元素,为Banner倒数第二张图
-            mImagePaths.add(imagePaths.get(mRealPagers - 2));
+            mBannerEntry.add(imagePaths.get(mRealPagers - 2));
             //mImagePaths第2个元素,为Banner最后一张图
-            mImagePaths.add(imagePaths.get(mRealPagers - 1));
-            mImagePaths.addAll(imagePaths);
+            mBannerEntry.add(imagePaths.get(mRealPagers - 1));
+            mBannerEntry.addAll(imagePaths);
             //mImagePaths倒数第2个元素,为Banner第一张图
-            mImagePaths.add(imagePaths.get(0));
+            mBannerEntry.add(imagePaths.get(0));
             //mImagePaths最后一个元素,为Banner第二张图
-            mImagePaths.add(imagePaths.get(1));
+            mBannerEntry.add(imagePaths.get(1));
         } else {
             //多添加2页
             mNeedPagers = mRealPagers + NORMAL_EXTRA_NUM;
             //mImagePaths第一个元素
             //为Banner最后一张图
-            mImagePaths.add(imagePaths.get(mRealPagers - 1));
-            mImagePaths.addAll(imagePaths);
+            mBannerEntry.add(imagePaths.get(mRealPagers - 1));
+            mBannerEntry.addAll(imagePaths);
             //mImagePaths最后一个元素
             //为Banner第一张图
-            mImagePaths.add(imagePaths.get(0));
+            mBannerEntry.add(imagePaths.get(0));
         }
         //通知更新数据
         notifyBannerData();
-        Log.d(TAG, "loadImagePaths: banner所需元素：" + mImagePaths);
+        Log.d(TAG, "loadImagePaths: banner所需元素：" + mBannerEntry);
     }
 
     /**
@@ -645,6 +659,9 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
         if (mBannerPagerChangedListener != null) {
             mBannerPagerChangedListener.onPageSelected(findRealPosition(position));
         }
+        if (mBannerText != null) {
+            mBannerText.setText(mBannerEntry.get(position).getIndicatorText());
+        }
         Log.d(TAG, "onPageSelected: 当前位置：" + mCurrentIndex
                 + "\n"
                 + "实际位置：" + findRealPosition(position));
@@ -657,7 +674,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
 
         @Override
         public int getCount() {
-            return mImagePaths.size();
+            return mBannerEntry.size();
         }
 
         @Override
@@ -676,14 +693,15 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
             }
             View bannerPager = mBannerItems.get(position);
             if (bannerPager == null) {
-                bannerPager = mBannerLoader.createView(mViewPager.getContext());
-                mBannerLoader.loadView(mViewPager.getContext(), mImagePaths.get(position), bannerPager);
+                final int realPosition = findRealPosition(position);
+                bannerPager = mBannerLoader.createView(mViewPager.getContext(), realPosition);
+                mBannerLoader.loadView(mViewPager.getContext(), mBannerEntry.get(position), realPosition, bannerPager);
                 mBannerItems.set(position, bannerPager);
                 bannerPager.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mOnBannerClickListener != null) {
-                            mOnBannerClickListener.onBannerClick(findRealPosition(position));
+                            mOnBannerClickListener.onBannerClick(realPosition);
                         }
                     }
                 });
@@ -744,11 +762,11 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
     /**
      * 当仅有一页时
      *
-     * @param path
+     * @param entry
      */
-    private void createOnlyOnePager(Object path) {
-        View pagerOne = mBannerLoader.createView(mViewPager.getContext());
-        mBannerLoader.loadView(mViewPager.getContext(), path, pagerOne);
+    private void createOnlyOnePager(BannerEntry entry) {
+        View pagerOne = mBannerLoader.createView(mViewPager.getContext(), 0);
+        mBannerLoader.loadView(mViewPager.getContext(), entry, 0, pagerOne);
         pagerOne.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

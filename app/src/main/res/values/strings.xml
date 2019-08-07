@@ -21,4 +21,22 @@
         \n indicator_select_drawable  :  指示器选中的样式
         \n indicator_default_drawable  :  指示器未选中样式
     </string>
+    <string name="banner_explain">这里加载的banner view有视频View
+        \n 因为没法准确定位当前bannerItem是不是不可见，
+        \n 致使无法准确控制视频播放的生命周期
+        \n 仅供自定义加载bannerItem做参考
+    </string>
+    <string name="banner_indicator">1. Banner本身为RelativeLayout
+        \n 2. 所以指示器你可以随便定义
+        \n 3. 结合setBannerPagerChangedListener()设置页数指示器
+        \n 4. 调用setBannerText()设置Banner摘要
+        \n 5. 详情见Demo
+    </string>
+    <string name="main">这真是一个还凑合的Banner
+        \n 轮播页面内部做了缓存
+        \n 支持一屏三页
+        \n 支持自定义BANNER显示的View
+        \n 支持自定义显示器
+        \n 反正用其来还凑合，大家多多指正!
+    </string>
 </resources>

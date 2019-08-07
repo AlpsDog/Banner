@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -24,30 +25,32 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * @Author: HSL
- * @Time: 2019/8/5 15:38
- * @E-mail: xxx@163.com
- * @Description: 基本使用~
- */
-public class BaseUseActivity extends AppCompatActivity {
+public class BannerIndicatorActivity extends AppCompatActivity {
 
+    @BindView(R.id.pager_tv)
+    TextView pagerTv;
+    @BindView(R.id.title_tv)
+    TextView titleTv;
     @BindView(R.id.banner)
     Banner banner;
+    @BindView(R.id.pager_2_tv)
+    TextView pager2Tv;
+    @BindView(R.id.title_2_tv)
+    TextView title2Tv;
     @BindView(R.id.banner_2)
     Banner banner2;
 
     private List<BannerItem> mData = new ArrayList<>();
 
     public static void start(Context context) {
-        Intent starter = new Intent(context, BaseUseActivity.class);
+        Intent starter = new Intent(context, BannerIndicatorActivity.class);
         context.startActivity(starter);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base_use);
+        setContentView(R.layout.activity_banner_indicator);
         ButterKnife.bind(this);
         initData();
         initBanner();
@@ -55,11 +58,11 @@ public class BaseUseActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        mData.add(new BannerItem(R.drawable.banner_1, ""));
-        mData.add(new BannerItem(R.drawable.banner_2, ""));
-        mData.add(new BannerItem(R.drawable.banner_3, ""));
-        mData.add(new BannerItem(R.drawable.banner_4, ""));
-        mData.add(new BannerItem(R.drawable.banner_5, ""));
+        mData.add(new BannerItem(R.drawable.banner_1, "《悯农》 白居易"));
+        mData.add(new BannerItem(R.drawable.banner_2, "锄禾日当午"));
+        mData.add(new BannerItem(R.drawable.banner_3, "汗滴禾下午"));
+        mData.add(new BannerItem(R.drawable.banner_4, "谁知盘中餐"));
+        mData.add(new BannerItem(R.drawable.banner_5, "粒粒皆辛苦"));
     }
 
     private void initBanner() {
@@ -79,7 +82,7 @@ public class BaseUseActivity extends AppCompatActivity {
         banner.setOnBannerClickListener(new Banner.OnBannerClickListener() {
             @Override
             public void onBannerClick(int position) {
-                Toast.makeText(BaseUseActivity.this, "点击了：" + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(BannerIndicatorActivity.this, "点击了：" + position, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -88,9 +91,11 @@ public class BaseUseActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 Log.d("hsl777", "onPageSelected: ==>" + position);
+                pagerTv.setText(String.format("%s/5", position + 1));
             }
         });
-
+        //额外功能设置banner摘要
+        banner.setBannerText(titleTv);
         // 4 最重要一步，加载数据
         banner.loadImagePaths(mData);
     }
@@ -112,7 +117,7 @@ public class BaseUseActivity extends AppCompatActivity {
         banner2.setOnBannerClickListener(new Banner.OnBannerClickListener() {
             @Override
             public void onBannerClick(int position) {
-                Toast.makeText(BaseUseActivity.this, "点击了：" + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(BannerIndicatorActivity.this, "点击了：" + position, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -121,13 +126,14 @@ public class BaseUseActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 Log.d("hsl777", "onPageSelected: ==>" + position);
+                pager2Tv.setText(String.format("%s/5", position + 1));
             }
         });
-
+        //额外功能设置banner摘要
+        banner2.setBannerText(title2Tv);
         // 4. 最重要一步，加载数据
         banner2.loadImagePaths(mData);
     }
-
 
     @Override
     protected void onResume() {

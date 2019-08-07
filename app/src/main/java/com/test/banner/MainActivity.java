@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.test.banner.banner.BannerIndicatorActivity;
+import com.test.banner.banner.BannerViewActivity;
 import com.test.banner.banner.BaseUseActivity;
 import com.test.banner.banner.ShowAnimActivity;
 
@@ -23,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
     TextView bannerBaseUse;
     @BindView(R.id.banner_anim_show)
     TextView bannerAnimShow;
+    @BindView(R.id.banner_view_show)
+    TextView bannerViewShow;
+    @BindView(R.id.banner_indicator_show)
+    TextView bannerIndicatorShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,5 +51,21 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.banner_anim_show)
     public void onAnimShowClicked() {
         ShowAnimActivity.start(this);
+    }
+
+    /**
+     * 自定义展示VIEW
+     */
+    @OnClick(R.id.banner_view_show)
+    public void onBannerViewClicked() {
+        BannerViewActivity.start(this);
+    }
+
+    /**
+     * Banner指示器
+     */
+    @OnClick(R.id.banner_indicator_show)
+    public void onIndicatorClicked() {
+        BannerIndicatorActivity.start(this);
     }
 }

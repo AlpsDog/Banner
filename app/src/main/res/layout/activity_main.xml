@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -39,5 +40,72 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:background="#eeeeee" />
+
+    <TextView
+        android:id="@+id/banner_view_show"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:text="Banner 自定义View"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#eeeeee" />
+
+    <TextView
+        android:id="@+id/banner_indicator_show"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:text="Banner指示器"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#eeeeee" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.hanks.htextview.rainbow.RainbowTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:gravity="right"
+            android:text="欢迎━(*｀∀´*)ノ亻!"
+            android:textSize="30sp"
+            app:colorSpace="150dp"
+            app:colorSpeed="4dp" />
+
+        <View
+            android:layout_width="@dimen/spacing_80"
+            android:layout_height="@dimen/spacing_80"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@mipmap/linshao" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:lineSpacingExtra="6dp"
+            android:text="@string/main"
+            android:textSize="18sp" />
+    </LinearLayout>
+
 </LinearLayout>
 

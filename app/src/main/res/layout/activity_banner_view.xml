@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.test.banner.banner.BannerViewActivity">
+
+    <com.geek.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        app:banner_auto_play="true"
+        app:banner_default_image="@drawable/banner_default"
+        app:banner_expose_width="20dp"
+        app:banner_interval_time="5000"
+        app:banner_multi_anim="ScaleIn"
+        app:banner_page_spacing="14dp"
+        app:banner_scroll_time="1000"
+        app:banner_show_indicator="true"
+        app:banner_show_model="Multi"
+        app:layout_scrollFlags="scroll" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:lineSpacingExtra="4dp"
+        android:text="@string/banner_explain"
+        android:textColor="#999999"
+        android:textSize="20sp" />
+</LinearLayout>
