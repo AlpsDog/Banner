@@ -10,6 +10,20 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        debug {
+            keyAlias 'banner'
+            keyPassword 'wl2019'
+            storeFile file('../banner.jks')
+            storePassword 'wl2019'
+        }
+        release {
+            keyAlias 'banner'
+            keyPassword 'wl2019'
+            storeFile file('../banner.jks')
+            storePassword 'wl2019'
+        }
+    }
     lintOptions {
         abortOnError false
         disable 'GoogleAppIndexingWarning'

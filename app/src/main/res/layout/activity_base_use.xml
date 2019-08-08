@@ -25,7 +25,7 @@
             app:banner_show_indicator="true"
             app:banner_show_model="Single"
             app:banner_single_anim="Accordion"
-            app:layout_scrollFlags="scroll" />
+            app:layout_scrollFlags="scroll"/>
 
         <com.geek.banner.Banner
             android:id="@+id/banner_2"
