@@ -12,7 +12,7 @@
 
 ## 有图有真相
 ![Banner1](https://github.com/AlpsDog/Banner/blob/master/banner1.png)
-![Banner2]https://github.com/AlpsDog/Banner/blob/master/banner2.png)
+![Banner2](https://github.com/AlpsDog/Banner/blob/master/banner2.png)
 ![Banner3](https://github.com/AlpsDog/Banner/blob/master/banner3.png)
 ![Banner4](https://github.com/AlpsDog/Banner/blob/master/banner4.png)
 
@@ -202,6 +202,7 @@ indicator_default_drawable  :  指示器未选中样式
 感谢[张鸿洋](https://github.com/hongyangAndroid/MagicViewPager)大师的ViewPager一屏三页动画
 
 **感谢大家对鄙人的支持**
+
 ![HEAD](https://github.com/AlpsDog/Banner/blob/master/linshao.png)
 
 
