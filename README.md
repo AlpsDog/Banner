@@ -196,7 +196,7 @@ indicator_margin_bottom  :  指示器距底部距离
 indicator_select_drawable  :  指示器选中的样式
 indicator_default_drawable  :  指示器未选中样式
 ```
-#鸣谢
+## 鸣谢
 感谢[youth5201314](https://github.com/youth5201314/banner)前辈的Banner，
 感谢[张鸿洋](https://github.com/hongyangAndroid/MagicViewPager)大师的ViewPager一屏三页动画
 
