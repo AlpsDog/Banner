@@ -11,10 +11,10 @@
 - 一句话：更加精简，更加智能，更加好用！！！
 
 ## 有图有真相
-![Banner1](\banner1.png)
-![Banner2](\banner2.png)
-![Banner3](\banner3.png)
-![Banner4](\banner4.png)
+![Banner1](https://github.com/AlpsDog/Banner/blob/master/banner1.png)
+![Banner2]https://github.com/AlpsDog/Banner/blob/master/banner2.png)
+![Banner3](https://github.com/AlpsDog/Banner/blob/master/banner3.png)
+![Banner4](https://github.com/AlpsDog/Banner/blob/master/banner4.png)
 
 ## 简单用法
 #### 1.添加依赖：
@@ -197,11 +197,12 @@ indicator_select_drawable  :  指示器选中的样式
 indicator_default_drawable  :  指示器未选中样式
 ```
 ## 鸣谢
-感谢[youth5201314](https://github.com/youth5201314/banner)前辈的Banner，
+感谢[youth5201314](https://github.com/youth5201314/banner)前辈的Banner
+
 感谢[张鸿洋](https://github.com/hongyangAndroid/MagicViewPager)大师的ViewPager一屏三页动画
 
 **感谢大家对鄙人的支持**
-![HEAD](\linshao.png)
+![HEAD](https://github.com/AlpsDog/Banner/blob/master/linshao.png)
 
 
 
