@@ -56,6 +56,6 @@ dependencies {
     implementation 'com.github.iwgang:countdownview:2.1.6'
     implementation 'cn.jzvd:jiaozivideoplayer:7.0.5'
     implementation "com.hanks:htextview-rainbow:0.1.6"
-    implementation project(':banner')
-//    implementation 'com.github.AlpsDog:Banner:v1.0.0'
+//    implementation project(':banner')
+    implementation 'com.github.AlpsDog:Banner:v1.0.1'
 }
