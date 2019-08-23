@@ -18,7 +18,7 @@
 ![Banner4](https://github.com/AlpsDog/Banner/blob/master/banner4.png)
 
 ### 新增仿魅族Banner
-![Banner5](https://github.com/AlpsDog/Banner/blob/master/banner4.png)
+![Banner5](https://github.com/AlpsDog/Banner/blob/master/banner5.png)
 
 ## 简单用法
 #### 1.添加依赖：
@@ -26,7 +26,7 @@
 1.1 工程的build.gradle下添加：
     maven { url 'https://jitpack.io' }
 1.2 模块的build.gradle下添加：
-    implementation 'com.github.AlpsDog:Banner:v1.0.1'
+    implementation 'com.github.AlpsDog:Banner:v1.0.2'
 ```
 #### 2.XML布局文件
 ```
@@ -201,6 +201,21 @@ indicator_space  :  指示器间隔
 indicator_margin_bottom  :  指示器距底部距离
 indicator_select_drawable  :  指示器选中的样式
 indicator_default_drawable  :  指示器未选中样式
+```
+## 版本说明
+##### v1.0.2正式版
+```
+新增仿魅族Banner
+```
+##### v1.0.1正式版
+```
+1.对内部结构进行了优化
+2.增加数据源接口，规范使用
+```
+##### V1.0.0正式版
+```
+1.轮播图使用示例
+2.轮播图LIB源码
 ```
 ## 鸣谢
 感谢[youth5201314](https://github.com/youth5201314/banner)前辈的Banner
