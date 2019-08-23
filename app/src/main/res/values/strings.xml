@@ -3,13 +3,15 @@
     <string name="banner_attr_explain">Banner属性说明
         \n
         \n banner_auto_play  :  能否自动轮播
-        \n banner_show_model  :  显示模式（一屏一页、一屏三页）
+        \n banner_show_model  :  显示模式（一屏一页、一屏三页、仿魅族Banner）
         \n banner_interval_time  :  轮播间隔
         \n banner_scroll_time  :  翻页时长（决定翻页的速度）
         \n banner_single_anim  :  一屏一页动画
         \n banner_default_image  :  数据为空时，默认显示图
         \n banner_expose_width  :  一屏三页，左右两页露出的宽度
         \n banner_page_spacing  :  一屏三页，页间距
+        \n banner_mz_overlap  :  仿魅族Banner时，中间Page压着左右两边page的宽度（与左右banner重叠的宽度）
+        \n banner_mz_anim  :  仿魅族Banner动画
         \n banner_multi_anim  :  一屏三页动画
         \n banner_show_indicator  :  是否显示指示器
         \n indicator_select_width  :  选中的指示器宽度
@@ -38,5 +40,13 @@
         \n 支持自定义BANNER显示的View
         \n 支持自定义显示器
         \n 反正用其来还凑合，大家多多指正!
+    </string>
+
+    <string name="banner_mz_explain">Banner新增属性说明（仿魅族）
+        \n
+        \n banner_show_model  :  显示模式（一屏一页、一屏三页、仿魅族Banner）
+        \n banner_mz_overlap  :  仿魅族Banner时，中间Page压着左右两边page的宽度（与左右banner重叠的宽度）
+        \n banner_mz_anim  :  仿魅族Banner动画
+        \n banner_expose_width  :  仿魅族Banner，左右两页可见的宽度（不包括被中间page压着的，整个长度得加上banner_mz_overlap）
     </string>
 </resources>

@@ -25,6 +25,7 @@ import com.geek.banner.transformer.complex.RotateDownPageTransformer;
 import com.geek.banner.transformer.complex.RotateUpPageTransformer;
 import com.geek.banner.transformer.complex.RotateYTransformer;
 import com.geek.banner.transformer.complex.ScaleInTransformer;
+import com.geek.banner.transformer.complex.ScaleYTransformer;
 import com.geek.banner.transformer.simple.AccordionTransformer;
 import com.geek.banner.transformer.simple.BackgroundToForegroundTransformer;
 import com.geek.banner.transformer.simple.CubeInTransformer;
@@ -84,10 +85,14 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
     private int mExposeWidth;
     //页面间距
     private int mPageSpacing;
+    //魅族模式重叠尺寸
+    private int mOverlapSize;
     //单页轮播动画
     private int mSingleTransform;
     //多页轮播动画
     private int mMultiTransform;
+    //仿魅族Banner动画
+    private int mMzTransform;
     //Banner无数据默认显示
     private int mDefaultBanner;
     //指示器选中宽度
@@ -155,6 +160,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
         mIntervalTime = ta.getInteger(R.styleable.Banner_banner_interval_time, BannerConfig.INTERVAL_TIME);
         mPagerScrollTime = ta.getInteger(R.styleable.Banner_banner_scroll_time, BannerConfig.SCROLL_TIME);
         mExposeWidth = (int) ta.getDimension(R.styleable.Banner_banner_expose_width, BannerConfig.EXPOSE_WIDTH);
+        mOverlapSize = (int) ta.getDimension(R.styleable.Banner_banner_mz_overlap, BannerConfig.PAGE_SPACING);
         mPageSpacing = (int) ta.getDimension(R.styleable.Banner_banner_page_spacing, BannerConfig.PAGE_SPACING);
         mIndicatorSelectedW = (int) ta.getDimension(R.styleable.Banner_indicator_select_width, dip2px(context, 8));
         mIndicatorDefaultW = (int) ta.getDimension(R.styleable.Banner_indicator_default_width, dip2px(context, 8));
@@ -166,6 +172,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
         mIndicatorDefaultD = ta.getResourceId(R.styleable.Banner_indicator_default_drawable, R.drawable.shape_banner_default_indicator);
         mSingleTransform = ta.getInteger(R.styleable.Banner_banner_single_anim, BannerConfig.PAGER_TRANSFORM);
         mMultiTransform = ta.getInteger(R.styleable.Banner_banner_multi_anim, BannerConfig.PAGER_TRANSFORM);
+        mMzTransform = ta.getInteger(R.styleable.Banner_banner_mz_anim, BannerConfig.PAGER_TRANSFORM);
         ta.recycle();
     }
 
@@ -189,16 +196,29 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
     private void initMultiPage() {
         //非一屏三页，直接return
         if (mShowModel == BannerConfig.SINGLE) return;
+        //避免负数
+        if (mExposeWidth < 0) mExposeWidth = 0;
+        if (mPageSpacing < 0) mPageSpacing = 0;
+        if (mOverlapSize < 0) mOverlapSize = 0;
         //关键之处:
         // 1.当clipChildren为false时，超出View的子页面，不会被切掉，仍然可以显示。
         // 2.设置为true，那么不管你的子View设置为多大子View左右的View都不会显示，会用空白代替。
         // 3.设置setPagerMargin()
         setClipChildren(false);
         LayoutParams params = (LayoutParams) mViewPager.getLayoutParams();
-        params.leftMargin = mExposeWidth + mPageSpacing;
-        params.rightMargin = mExposeWidth + mPageSpacing;
+        //仿魅族是，暴露的宽度即为margin
+        int margin = mShowModel == 2 ? (mExposeWidth + mPageSpacing) : mExposeWidth;
+        params.leftMargin = margin;
+        params.rightMargin = margin;
         mViewPager.setLayoutParams(params);
-        setPagerMargin(mPageSpacing);
+        //仿魅族Banner重要设置
+        //仿魅族Banner重要设置
+        if (mShowModel == 3) {
+            mViewPager.setEnableMzEffects(true);
+        }
+        //mShowModel == 2 正常一屏三页，显示正数间隔
+        //mShowModel == 3 仿魅族Banner
+        setPagerMargin(mShowModel == 2 ? mPageSpacing : -mOverlapSize);
         //左右预加载两页即可，太多会加大内存消耗
         setOffscreenPageLimit(2);
     }
@@ -213,9 +233,12 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
         int defaultMargin = dip2px(getContext(), 16);
         LayoutParams params = (LayoutParams) mIndicatorLl.getLayoutParams();
         if (mShowModel == BannerConfig.MULTI) {
-            //指示器
             params.leftMargin = mExposeWidth + mPageSpacing + defaultMargin;
             params.rightMargin = mExposeWidth + mPageSpacing + defaultMargin;
+            params.bottomMargin = mIndicatorMarginBottom;
+        } else if (mShowModel == BannerConfig.MZ_EFFECT) {
+            params.leftMargin = mExposeWidth + defaultMargin;
+            params.rightMargin = mExposeWidth + defaultMargin;
             params.bottomMargin = mIndicatorMarginBottom;
         } else {
             params.leftMargin = defaultMargin;
@@ -280,7 +303,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
             } else {
                 setBannerTransformer(new ZoomOutSlideTransformer());
             }
-        } else {
+        } else if (mShowModel == BannerConfig.MULTI) {
             if (mMultiTransform == 0) {
                 setBannerTransformer(new AlphaPageTransformer());
             } else if (mMultiTransform == 1) {
@@ -293,6 +316,14 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
                 setBannerTransformer(new RotateYTransformer());
             } else {
                 setBannerTransformer(new ScaleInTransformer());
+            }
+        } else {
+            if (mMzTransform == 0) {
+                setBannerTransformer(new RotateYTransformer());
+            } else if (mMzTransform == 1) {
+                setBannerTransformer(new ScaleInTransformer());
+            } else {
+                setBannerTransformer(new ScaleYTransformer());
             }
         }
     }
@@ -323,7 +354,8 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
      * @param marginPixels
      */
     public void setPagerMargin(int marginPixels) {
-        if (mViewPager != null && mShowModel == BannerConfig.MULTI) {
+        if (mViewPager == null) return;
+        if (mShowModel == BannerConfig.MULTI || mShowModel == BannerConfig.MZ_EFFECT) {
             mViewPager.setPageMargin(marginPixels);
         }
     }
@@ -437,7 +469,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
         //创建指示器
         createDefaultIndicator(mRealPagers);
         //数据源处理
-        if (mShowModel == BannerConfig.MULTI) {
+        if (mShowModel == BannerConfig.MULTI || mShowModel == BannerConfig.MZ_EFFECT) {
             //多添加4页
             mNeedPagers = mRealPagers + MULTIPAGE_EXTRA_NUM;
             //mImagePaths第1个元素,为Banner倒数第二张图
@@ -471,7 +503,9 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
     private void notifyBannerData() {
         //Banner的起始位置
         mCurrentIndex = 1;
-        if (mShowModel == BannerConfig.MULTI) mCurrentIndex = 2;
+        if (mShowModel == BannerConfig.MULTI || mShowModel == BannerConfig.MZ_EFFECT) {
+            mCurrentIndex = 2;
+        }
         //适配器创建
         if (mBannerPagerAdapter == null) {
             mBannerPagerAdapter = new BannerPagerAdapter();
@@ -507,7 +541,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
      * 获取真正的下标
      */
     private int findRealPosition(int position) {
-        if (mShowModel == BannerConfig.MULTI) {
+        if (mShowModel == BannerConfig.MULTI || mShowModel == BannerConfig.MZ_EFFECT) {
             if (position == 1) {
                 //Last Pager
                 return mRealPagers - 1;
@@ -560,7 +594,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
         @Override
         public void run() {
             mCurrentIndex++;
-            if (mShowModel == BannerConfig.MULTI) {
+            if (mShowModel == BannerConfig.MULTI || mShowModel == BannerConfig.MZ_EFFECT) {
                 //一屏三页
                 if (mCurrentIndex == mNeedPagers - 1) {
                     //当前处于倒数第二页，为Banner第一张图
@@ -611,7 +645,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
                 Log.d(TAG, "onPageScrollStateChanged: 空闲");
                 break;
             case 1:
-                if (mShowModel == BannerConfig.MULTI) {
+                if (mShowModel == BannerConfig.MULTI || mShowModel == BannerConfig.MZ_EFFECT) {
                     if (mCurrentIndex == 1) {
                         //过渡到真实的最后一页(即：倒数第三页)
                         mViewPager.setCurrentItem(mNeedPagers - 3, false);

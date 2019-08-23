@@ -11,6 +11,7 @@ public interface BannerConfig {
     boolean CAN_AUTO_PLAY = true;
     int SINGLE = 1;
     int MULTI = 2;
+    int MZ_EFFECT = 3;
     int INTERVAL_TIME = 3000;
     int SCROLL_TIME = 800;
     int EXPOSE_WIDTH = 40;
