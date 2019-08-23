@@ -28,6 +28,14 @@
 1.2 模块的build.gradle下添加：
     implementation 'com.github.AlpsDog:Banner:v1.0.2'
 ```
+> 如果你的项目为: **AndroidX**
+```
+请在 gradle.properties 中添加：（如果已经添加请忽略）
+
+android.useAndroidX=true
+android.enableJetifier=true
+
+```
 #### 2.XML布局文件
 ```
  <com.geek.banner.Banner
