@@ -7,6 +7,7 @@
 - 支持任意View显示在Banner上
 - 支持自定义显示器
 - 支持多种Banner动画
+- 支持仿魅族Banner
 - 创建的View内部已做缓存，性能更佳
 - 一句话：更加精简，更加智能，更加好用！！！
 
@@ -15,6 +16,9 @@
 ![Banner2](https://github.com/AlpsDog/Banner/blob/master/banner2.png)
 ![Banner3](https://github.com/AlpsDog/Banner/blob/master/banner3.png)
 ![Banner4](https://github.com/AlpsDog/Banner/blob/master/banner4.png)
+
+### 新增仿魅族Banner
+![Banner5](https://github.com/AlpsDog/Banner/blob/master/banner4.png)
 
 ## 简单用法
 #### 1.添加依赖：
@@ -178,7 +182,7 @@ public abstract class ImageLoader<T> implements BannerLoader<T, ImageView> {
 #### 6.自定义属性说明
 ```
 banner_auto_play  :  能否自动轮播
-banner_show_model  :  显示模式（一屏一页、一屏三页）
+banner_show_model  :  显示模式（一屏一页、一屏三页、仿魅族Banner）
 banner_interval_time  :  轮播间隔
 banner_scroll_time  :  翻页时长（决定翻页的速度）
 banner_single_anim  :  一屏一页动画
@@ -186,6 +190,8 @@ banner_default_image  :  数据为空时，默认显示图
 banner_expose_width  :  一屏三页，左右两页露出的宽度
 banner_page_spacing  :  一屏三页，页间距
 banner_multi_anim  :  一屏三页动画
+banner_mz_overlap  :  仿魅族Banner时，中间Page压着左右两边page的宽度
+banner_mz_anim  :  仿魅族Banner动画
 banner_show_indicator  :  是否显示指示器
 indicator_select_width  :  选中的指示器宽度
 indicator_select_height  :  选中的指示器高度
