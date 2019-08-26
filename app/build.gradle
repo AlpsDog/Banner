@@ -57,6 +57,6 @@ dependencies {
     implementation 'cn.jzvd:jiaozivideoplayer:7.0.5'
     implementation "com.hanks:htextview-rainbow:0.1.6"
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-28'
-    implementation project(':banner')
-//    implementation 'com.github.AlpsDog:Banner:v1.0.2'
+//    implementation project(':banner')
+    implementation 'com.github.AlpsDog:Banner:v1.0.3'
 }
