@@ -8,6 +8,7 @@
 - 支持自定义显示器
 - 支持多种Banner动画
 - 支持仿魅族Banner
+- 空数据、两条数据优化处理
 - 创建的View内部已做缓存，性能更佳
 - 一句话：更加精简，更加智能，更加好用！！！
 
@@ -16,6 +17,7 @@
 ![Banner2](https://github.com/AlpsDog/Banner/blob/master/banner2.png)
 ![Banner3](https://github.com/AlpsDog/Banner/blob/master/banner3.png)
 ![Banner4](https://github.com/AlpsDog/Banner/blob/master/banner4.png)
+![Banner6](https://github.com/AlpsDog/Banner/blob/master/banner6.png)
 
 ### 新增仿魅族Banner
 ![Banner5](https://github.com/AlpsDog/Banner/blob/master/banner5.png)
@@ -26,7 +28,7 @@
 1.1 工程的build.gradle下添加：
     maven { url 'https://jitpack.io' }
 1.2 模块的build.gradle下添加：
-    implementation 'com.github.AlpsDog:Banner:v1.0.2'
+    implementation 'com.github.AlpsDog:Banner:v1.0.3'
 ```
 > 如果你的项目为: **AndroidX**
 ```
@@ -86,6 +88,27 @@ android.enableJetifier=true
 
         // 4 最重要一步，加载数据
         banner.loadImagePaths(mData);
+```
+
+>非常重要之处
+```
+ 此处添加可以优化Banner体验
+ 但是一旦启用自动轮播，必须调用 banner.stopAutoPlay();
+ 可以在onResume()、也可以在onDestory(),
+ 这样才能确保轮播任务停止
+ 防止内存泄漏
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        banner.startAutoPlay();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        banner.stopAutoPlay();
+    }
 ```
 
 #### 4.数据源说明
@@ -211,6 +234,11 @@ indicator_select_drawable  :  指示器选中的样式
 indicator_default_drawable  :  指示器未选中样式
 ```
 ## 版本说明
+##### v1.0.3正式版
+```
+1.空数据优化
+2.频繁刷新优化
+```
 ##### v1.0.2正式版
 ```
 新增仿魅族Banner
