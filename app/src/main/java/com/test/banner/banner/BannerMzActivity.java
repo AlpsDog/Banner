@@ -54,11 +54,13 @@ public class BannerMzActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        bannerMz.startAutoPlay();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        bannerMz.stopAutoPlay();
     }
 
     private void initData() {

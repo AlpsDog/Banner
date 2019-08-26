@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.test.banner.banner.BannerDataActivity;
 import com.test.banner.banner.BannerIndicatorActivity;
 import com.test.banner.banner.BannerMzActivity;
 import com.test.banner.banner.BannerViewActivity;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.banner_base_use)
     TextView bannerBaseUse;
+    @BindView(R.id.banner_empty_use)
+    TextView bannerEmptyUse;
     @BindView(R.id.banner_mz_use)
     TextView bannerMzUse;
     @BindView(R.id.banner_anim_show)
@@ -49,10 +52,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * 空数据、刷新
+     */
+    @OnClick(R.id.banner_empty_use)
+    public void onBannerEmptyUseClicked() {
+        BannerDataActivity.start(this);
+    }
+
+    /**
      * 仿魅族Banner
      */
     @OnClick(R.id.banner_mz_use)
-    public void onViewClicked() {
+    public void onBannerMzClicked() {
         BannerMzActivity.start(this);
     }
 

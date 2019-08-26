@@ -62,6 +62,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
     public static final String TAG = "banner";
     public static final int NORMAL_EXTRA_NUM = 2;
     public static final int MULTIPAGE_EXTRA_NUM = 4;
+    public static final boolean DEBUG = BuildConfig.DEBUG;
 
     private BannerViewPager mViewPager;
     private LinearLayout mIndicatorLl;
@@ -338,10 +339,14 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
                     || action == MotionEvent.ACTION_CANCEL
                     || action == MotionEvent.ACTION_OUTSIDE) {
                 startAutoPlay();
-                Log.d(TAG, "dispatchTouchEvent: 开始轮播");
+                if (DEBUG) {
+                    Log.d(TAG, "dispatchTouchEvent: 开始轮播");
+                }
             } else if (action == MotionEvent.ACTION_DOWN) {
                 stopAutoPlay();
-                Log.d(TAG, "dispatchTouchEvent: 取消轮播");
+                if (DEBUG) {
+                    Log.d(TAG, "dispatchTouchEvent: 取消轮播");
+                }
             }
         }
         return super.dispatchTouchEvent(ev);
@@ -449,23 +454,38 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
      * @return
      */
     public void loadImagePaths(List<? extends BannerEntry> imagePaths) {
-        if (imagePaths == null || imagePaths.isEmpty()) {
-            mDefaultImg.setVisibility(VISIBLE);
-            Log.e(TAG, "The image data set is empty.");
-            return;
+        //说明loadImagePaths()方法不是第一次调用
+        //需要进行初始化
+        if (!mBannerEntry.isEmpty()) {
+            mWeakHandler.removeCallbacks(mBannerPlayRunnable);
+            mBannerEntry.clear();
+            mBannerItems.clear();
+            //清除仅一页时，添加的View
+            View lastOnePager = findViewWithTag("only_one_pager");
+            if (lastOnePager != null) removeView(lastOnePager);
+            mRealPagers = 0;
+            mNeedPagers = 0;
+            mCurIndicatorIndex = 0;
+            //轮播速度过快时，防止数据清空，VP正好在执行任务，出现异常
+            if (mIntervalTime < 3000 && mBannerPagerAdapter != null) {
+                mViewPager.setAdapter(mBannerPagerAdapter);
+            }
         }
         mDefaultImg.setVisibility(GONE);
-        mBannerEntry.clear();
-        mBannerItems.clear();
+        if (imagePaths == null || imagePaths.isEmpty()) {
+            mDefaultImg.setVisibility(VISIBLE);
+            return;
+        }
         mRealPagers = imagePaths.size();
-        //清除仅一页时，添加的View
-        View lastOnePager = findViewWithTag("only_one_pager");
-        if (lastOnePager != null) removeView(lastOnePager);
+        //处理仅有一页时的情况
         if (imagePaths.size() == 1) {
-            //仅有一页时
             createOnlyOnePager(imagePaths.get(0));
             return;
         }
+
+        //正常流程
+        //正常流程
+
         //创建指示器
         createDefaultIndicator(mRealPagers);
         //数据源处理
@@ -494,7 +514,9 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
         }
         //通知更新数据
         notifyBannerData();
-        Log.d(TAG, "loadImagePaths: banner所需元素：" + mBannerEntry);
+        if (DEBUG) {
+            Log.d(TAG, "loadImagePaths: banner所需元素：" + mBannerEntry);
+        }
     }
 
     /**
@@ -502,9 +524,10 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
      */
     private void notifyBannerData() {
         //Banner的起始位置
-        mCurrentIndex = 1;
         if (mShowModel == BannerConfig.MULTI || mShowModel == BannerConfig.MZ_EFFECT) {
             mCurrentIndex = 2;
+        } else {
+            mCurrentIndex = 1;
         }
         //适配器创建
         if (mBannerPagerAdapter == null) {
@@ -597,7 +620,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
             if (mShowModel == BannerConfig.MULTI || mShowModel == BannerConfig.MZ_EFFECT) {
                 //一屏三页
                 if (mCurrentIndex == mNeedPagers - 1) {
-                    //当前处于倒数第二页，为Banner第一张图
+                    //当前处于倒数第二页(因为mCurrentIndex++)，为Banner第一张图
                     //此时过渡到真实的第一页（即下标为2）
                     mViewPager.setCurrentItem(2, false);
                     mWeakHandler.post(mBannerPlayRunnable);
@@ -619,7 +642,9 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
                     mWeakHandler.postDelayed(mBannerPlayRunnable, mIntervalTime);
                 }
             }
-            Log.d(TAG, "run: 下标：" + mCurrentIndex);
+            if (DEBUG) {
+                Log.d(TAG, "run: 下标：" + mCurrentIndex);
+            }
         }
     };
 
@@ -642,7 +667,9 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
         //多点触碰滑动，不做处理，你非要这样，我也没办法
         switch (state) {
             case 0:
-                Log.d(TAG, "onPageScrollStateChanged: 空闲");
+                if (DEBUG) {
+                    Log.d(TAG, "onPageScrollStateChanged: 空闲");
+                }
                 break;
             case 1:
                 if (mShowModel == BannerConfig.MULTI || mShowModel == BannerConfig.MZ_EFFECT) {
@@ -665,11 +692,15 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
                         mViewPager.setCurrentItem(1, false);
                     }
                 }
-                Log.d(TAG, "onPageScrollStateChanged: 按下拖拽：" + mCurrentIndex);
+                if (DEBUG) {
+                    Log.d(TAG, "onPageScrollStateChanged: 按下拖拽：" + mCurrentIndex);
+                }
                 break;
             case 2:
                 // TODO: 2018/12/3
-                Log.d(TAG, "onPageScrollStateChanged: 抬起");
+                if (DEBUG) {
+                    Log.d(TAG, "onPageScrollStateChanged: 抬起");
+                }
                 break;
             default:
                 //default
@@ -690,15 +721,23 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
     public void onPageSelected(int position) {
         mCurrentIndex = position;
         setSelectedIndicator(findRealPosition(position));
+//        //防止此处下标时，重复回调
+//        if (mShowModel == BannerConfig.SINGLE) {
+//            if (position == 1) return;
+//        } else {
+//            if (position == 2) return;
+//        }
         if (mBannerPagerChangedListener != null) {
             mBannerPagerChangedListener.onPageSelected(findRealPosition(position));
         }
         if (mBannerText != null) {
             mBannerText.setText(mBannerEntry.get(position).getIndicatorText());
         }
-        Log.d(TAG, "onPageSelected: 当前位置：" + mCurrentIndex
-                + "\n"
-                + "实际位置：" + findRealPosition(position));
+        if (DEBUG){
+            Log.d(TAG, "onPageSelected: 当前位置：" + mCurrentIndex
+                    + "\n"
+                    + "实际位置：" + findRealPosition(position));
+        }
     }
 
     /**
@@ -777,7 +816,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
     private void setSelectedIndicator(int aimsPosition) {
         if (!mShowIndicator) return;
         int childCount = mIndicatorLl.getChildCount();
-        if (aimsPosition > childCount - 1) return;
+        if (aimsPosition > childCount - 1 || mCurIndicatorIndex > childCount - 1) return;
         View beforeChild = mIndicatorLl.getChildAt(mCurIndicatorIndex);
         ViewGroup.LayoutParams lastChildLayoutParams = beforeChild.getLayoutParams();
         lastChildLayoutParams.width = mIndicatorDefaultW;

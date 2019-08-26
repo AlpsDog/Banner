@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".banner.BannerMzActivity"></activity>
+        <activity android:name=".banner.BannerDataActivity"></activity>
+        <activity android:name=".banner.BannerMzActivity" />
         <activity android:name=".banner.BannerIndicatorActivity" />
         <activity android:name=".banner.BannerViewActivity" />
         <activity android:name=".banner.ShowAnimActivity" />
