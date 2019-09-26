@@ -461,7 +461,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
             mBannerEntry.clear();
             mBannerItems.clear();
             //清除仅一页时，添加的View
-            View lastOnePager = findViewWithTag("only_one_pager");
+            View lastOnePager = findViewById(R.id.only_one_pager);
             if (lastOnePager != null) removeView(lastOnePager);
             mRealPagers = 0;
             mNeedPagers = 0;
@@ -733,7 +733,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
         if (mBannerText != null) {
             mBannerText.setText(mBannerEntry.get(position).getIndicatorText());
         }
-        if (DEBUG){
+        if (DEBUG) {
             Log.d(TAG, "onPageSelected: 当前位置：" + mCurrentIndex
                     + "\n"
                     + "实际位置：" + findRealPosition(position));
@@ -848,7 +848,7 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
                 }
             }
         });
-        pagerOne.setTag("only_one_pager");
+        pagerOne.setId(R.id.only_one_pager);
         //添加
         LayoutParams onePagerParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
