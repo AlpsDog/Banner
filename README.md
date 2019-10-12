@@ -28,7 +28,7 @@
 1.1 工程的build.gradle下添加：
     maven { url 'https://jitpack.io' }
 1.2 模块的build.gradle下添加：
-    implementation 'com.github.AlpsDog:Banner:v1.0.3'
+    implementation 'com.github.AlpsDog:Banner:v1.0.4'
 ```
 > 如果你的项目为: **AndroidX**
 ```
@@ -234,6 +234,10 @@ indicator_select_drawable  :  指示器选中的样式
 indicator_default_drawable  :  指示器未选中样式
 ```
 ## 版本说明
+##### v1.0.4正式版
+```
+1.修复一张图时，使用glide崩溃问题
+```
 ##### v1.0.3正式版
 ```
 1.空数据优化
