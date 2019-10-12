@@ -234,6 +234,10 @@ indicator_select_drawable  :  指示器选中的样式
 indicator_default_drawable  :  指示器未选中样式
 ```
 ## 版本说明
+##### v1.0.5正式版
+```
+1.修复一张图刷新为多张图是时，显示问题
+```
 ##### v1.0.4正式版
 ```
 1.修复一张图时，使用glide崩溃问题
