@@ -58,5 +58,5 @@ dependencies {
     implementation "com.hanks:htextview-rainbow:0.1.6"
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-28'
     implementation project(':banner')
-//    implementation 'com.github.AlpsDog:Banner:v1.0.4'
+//    implementation 'com.github.AlpsDog:Banner:v1.0.5'
 }

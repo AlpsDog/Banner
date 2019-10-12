@@ -480,6 +480,14 @@ public class Banner extends RelativeLayout implements ViewPager.OnPageChangeList
         //处理仅有一页时的情况
         if (imagePaths.size() == 1) {
             createOnlyOnePager(imagePaths.get(0));
+            if (mBannerPagerAdapter != null) {
+                //有多张转为一张时，数据源发生变化，此处因为return
+                //没有及时notifyDataSetChanged(),出现如下异常
+                // The application's PagerAdapter changed the adapter's contents without
+                // calling PagerAdapter#notifyDataSetChanged!
+                //此处避免异常，应该notifyDataSetChanged
+                mBannerPagerAdapter.notifyDataSetChanged();
+            }
             return;
         }
 

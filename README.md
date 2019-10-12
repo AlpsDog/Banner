@@ -28,7 +28,7 @@
 1.1 工程的build.gradle下添加：
     maven { url 'https://jitpack.io' }
 1.2 模块的build.gradle下添加：
-    implementation 'com.github.AlpsDog:Banner:v1.0.5'
+    implementation 'com.github.AlpsDog:Banner:v1.0.6'
 ```
 > 如果你的项目为: **AndroidX**
 ```
@@ -234,9 +234,10 @@ indicator_select_drawable  :  指示器选中的样式
 indicator_default_drawable  :  指示器未选中样式
 ```
 ## 版本说明
-##### v1.0.5正式版
+##### v1.0.6正式版
 ```
 1.修复一张图刷新为多张图是时，显示问题
+2.修复多张图刷为一张图时，崩溃问题
 ```
 ##### v1.0.4正式版
 ```
