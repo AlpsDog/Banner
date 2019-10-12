@@ -28,7 +28,7 @@
 1.1 工程的build.gradle下添加：
     maven { url 'https://jitpack.io' }
 1.2 模块的build.gradle下添加：
-    implementation 'com.github.AlpsDog:Banner:v1.0.4'
+    implementation 'com.github.AlpsDog:Banner:v1.0.5'
 ```
 > 如果你的项目为: **AndroidX**
 ```
